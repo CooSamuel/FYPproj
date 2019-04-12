@@ -1,7 +1,7 @@
 import pymongo
 import time
 
-client_url="mongodb://root:Xdcrcqs123@dds-uf607532bf5fe7e41.mongodb.rds.aliyuncs.com:3717,dds-uf607532bf5fe7e42.mongodb.rds.aliyuncs.com:3717/admin?replicaSet=mgset-14016667"
+client_url="mongodb://root:Xdcrcqs123@dds-2ze4640ee59336841.mongodb.rds.aliyuncs.com:3717,dds-2ze4640ee59336842.mongodb.rds.aliyuncs.com:3717/admin?replicaSet=mgset-14019471"
 clientAddress = pymongo.MongoClient(client_url)
 databaseName = clientAddress['qianshan']
 collcetionTable = databaseName['test']
