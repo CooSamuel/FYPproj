@@ -1,0 +1,34 @@
+Answer the questions from the lab manual in this file.
+root@server:~# setfacl -m g::rx /home
+root@server:~# setfacl -m g:emp:x /home
+root@server:~# setfacl -m g:wheel:rwx /home
+root@server:~# setfacl -m o::- /home
+
+root@server:/# setfacl -m o::w /ballots
+root@server:/# getfacl /ballots/
+getfacl: Removing leading '/' from absolute path names
+# file: ballots/
+# owner: root
+# group: root
+user::rwx
+group::r--
+other::-w-
+
+Answer:
+1. Short Answer 1: Is there any way that employees can read the ballots of other users? If so, what could be done to stop this? If not, what prevents them from reading them?
+- no they cannot
+- they do not have the permission to acsess the directory
+
+2. x for excute. withwhich the sub directories' file could be excuted.
+
+3. only tps
+
+4. no, they do not
+
+5. means the directory cannot been access by any one. the owner can only change the mod of it.
+
+6. not very safe. because we don't know the wheel's safty, in this way configing the file, anyone can access the directory with login as wheel user, while with sudo command they should enter the password of super user.
+
+7. I think it is safe. it greatly enhances the expressiveness of Unix permissions without actually changing the permissions system, regular users do not needs sudo to do some work.
+
+8. moe may have the access to broke the system, because it belongs to bwk's group while bwk is a admin user. So does curly, it belongs to dmr's group
