@@ -46,6 +46,6 @@ engineType = "sms16k"
 # audioFilePath = r"D:\webapidemo\iat_1130\webiat_demo\webiat_demo\resource\12.pcm"
 audioFilePath=r"testA.wav"
 
-r = requests.post(URL, headers=getHeader(aue, engineType), data=getBody(audioFilePath))
+r = requests.post(URL, headers=getHeader(aue, engineType), data=)
 # print("res: "+r.content.decode('utf-8'))
 print(r.status_code)
