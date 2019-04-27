@@ -36,16 +36,15 @@ def getBody(filepath):
     binfile = open(filepath, 'rb')
     data = {'audio': base64.b64encode(binfile.read())}
     # print(data)
-    # print('data:{}'.format(type(data['audio'])))
+    print('data:{}'.format(type(data['audio'])))
     # print("type(data['audio']):{}".format(type(data['audio'])))
     return data
 
 
 aue = "raw"
 engineType = "sms16k"
-# audioFilePath = r"D:\webapidemo\iat_1130\webiat_demo\webiat_demo\resource\12.pcm"
-audioFilePath=r"testA.wav"
+audioFilePath="/Users/Samuel/cosam/flaskAPI/iat_wav_16k.wav"
 
-r = requests.post(URL, headers=getHeader(aue, engineType), data=)
-# print("res: "+r.content.decode('utf-8'))
+r = requests.post(URL, headers=getHeader(aue, engineType), data=getBody(audioFilePath))
+print("res: "+r.content.decode('utf-8'))
 print(r.status_code)
