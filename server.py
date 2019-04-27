@@ -10,6 +10,9 @@ import requests
 import time
 import hashlib
 import base64
+import librosa    
+import wave
+import SingleWave
 
 URL = "http://api.xfyun.cn/v1/service/v1/iat"
 APPID = "5caf0bd5"
@@ -44,18 +47,27 @@ def writeBinary(binaryAudio):
   f.write(binaryAudio)
   f.close()
 
-def getBody(binaryAudio):
-  # ls = base64.b64encode(binaryAudio) 
-  # audio = urllib2.urlencoded(ls)
-  # binfile = open(filepath, 'rb')
-  # data = {'audio': base64.b64encode(binaryAudio)}
-  data = parse.urlencode({'audio': base64.b64encode(binaryAudio)})
-  # data = {'audio': base64.b64encode(binaryAudio)}
-  print("{} \ndata".format(data))
+# def getBody(binaryAudio):
+#   # ls = base64.b64encode(binaryAudio) 
+#   # audio = urllib2.urlencoded(ls)
+#   # binfile = open(filepath, 'rb')
+#   # data = {'audio': base64.b64encode(binaryAudio)}
+#   data = parse.urlencode({'audio': base64.b64encode(binaryAudio)})
+#   # data = {'audio': base64.b64encode(binaryAudio)}
+#   print("{} \ndata".format(data))
     
-  # print('data:{}'.format(type(data['audio'])))
-  # print("type(data['audio']):{}".format(type(data['audio'])))
-  return data
+#   # print('data:{}'.format(type(data['audio'])))
+#   # print("type(data['audio']):{}".format(type(data['audio'])))
+#   return data
+
+
+def getBody(filepath):
+    binfile = open(filepath, 'rb')
+    data = {'audio': base64.b64encode(binfile.read())}
+    # print(data)
+    print('data:{}'.format(type(data['audio'])))
+    # print("type(data['audio']):{}".format(type(data['audio'])))
+    return data
 
 app = Flask(__name__)
 
@@ -119,11 +131,19 @@ def translateAPI():
   # data = request.form.get('audio')
   # print(data)
   # audio = json.loads(data)['audio']
-  print(type(data))
   # print(type(audio.encode()))
   # print(audio)
-  path='testA.wav'
-  r = requests.post(URL, headers=getHeader(aue, engineType), data=getBody(blob))
+  path='myVoiceTest.wav'
+  pathOut='newMyVoiceTest.wav'
+  SingleWave(path,pathOut)
+  # wf1 = wave.open('newmyVoiceTest.wav', 'r')
+  # wf = wave.open(path)
+  # sw1 = wf1.getsampwidth()
+  # sw = wf.getsampwidth()
+  # print(sw1)
+  # print(sw)
+  # y, s = librosa.load('myVoiceTest.wav', sr=16000)
+  r = requests.post(URL, headers=getHeader(aue, engineType), data=getBody(pathOut))
   result = r.content.decode('utf-8')
   print(result)
   return result
