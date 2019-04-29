@@ -5,8 +5,8 @@ import hashlib
 import base64
 
 URL = "http://api.xfyun.cn/v1/service/v1/iat"
-APPID = "5c0cb672"
-API_KEY = "04f5d44c4f58d34e264b1e3d29fe58b1"
+APPID = "5caf0bd5"
+API_KEY = "dfca8545e3e33f3d86d1b74c63228aa8"
 
 
 def getHeader(aue, engineType):
