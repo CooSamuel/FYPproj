@@ -43,7 +43,8 @@ def getBody(filepath):
 
 aue = "raw"
 engineType = "sms16k"
-audioFilePath="/Users/Samuel/cosam/flaskAPI/iat_wav_16k.wav"
+#audioFilePath="iat_wav_16k.wav"
+audioFilePath="new.wav"
 
 r = requests.post(URL, headers=getHeader(aue, engineType), data=getBody(audioFilePath))
 print("res: "+r.content.decode('utf-8'))
