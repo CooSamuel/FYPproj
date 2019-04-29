@@ -10,7 +10,6 @@ import requests
 import time
 import hashlib
 import base64
-import librosa    
 import wave
 import SingleWave
 
@@ -41,9 +40,8 @@ def getHeader(aue, engineType):
     print(header)
     return header
 
-def writeBinary(binaryAudio):
-  f = open("myVoiceTest.wav", 'wb')
-  print(binaryAudio)
+def writeBinary(binaryAudio, fileName):
+  f = open(fileName, 'wb')
   f.write(binaryAudio)
   f.close()
 
@@ -61,8 +59,8 @@ def writeBinary(binaryAudio):
 #   return data
 
 
-def getBody(filepath):
-    binfile = open(filepath, 'rb')
+def getBody(fileName):
+    binfile = open(fileName, 'rb')
     data = {'audio': base64.b64encode(binfile.read())}
     # print(data)
     print('data:{}'.format(type(data['audio'])))
@@ -121,28 +119,18 @@ def updateAPI(id):
 # POST dictate
 @app.route('/dictate', methods=['POST'])
 def translateAPI():
+  pathIn='doubleVoice.wav' # temp storage of the voice recived from front end
+  pathOut='singleVoice.wav' # temp storage of the voice transfered from stereo voice
   aue = "raw"
-  engineType = "sms8k"
-
+  engineType = "sms16k"
   data = request.files['audio']
   blob = data.read()
-  writeBinary(blob)
-  # print(blob)
-  # data = request.form.get('audio')
-  # print(data)
-  # audio = json.loads(data)['audio']
-  # print(type(audio.encode()))
-  # print(audio)
-  path='myVoiceTest.wav'
-  pathOut='newMyVoiceTest.wav'
-  SingleWave(path,pathOut)
-  # wf1 = wave.open('newmyVoiceTest.wav', 'r')
-  # wf = wave.open(path)
-  # sw1 = wf1.getsampwidth()
-  # sw = wf.getsampwidth()
-  # print(sw1)
-  # print(sw)
-  # y, s = librosa.load('myVoiceTest.wav', sr=16000)
+
+  writeBinary(blob, pathIn)
+  print('FileIn created')
+  SingleWave(pathIn, pathOut)
+  print('FileOut created')
+
   r = requests.post(URL, headers=getHeader(aue, engineType), data=getBody(pathOut))
   result = r.content.decode('utf-8')
   print(result)
