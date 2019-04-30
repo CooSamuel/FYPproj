@@ -11,7 +11,7 @@ import time
 import hashlib
 import base64
 import wave
-import SingleWave
+from SingleWave import SingleWave
 
 URL = "http://api.xfyun.cn/v1/service/v1/iat"
 APPID = "5caf0bd5"
@@ -119,8 +119,8 @@ def updateAPI(id):
 # POST dictate
 @app.route('/dictate', methods=['POST'])
 def translateAPI():
-  pathIn='doubleVoice.wav' # temp storage of the voice recived from front end
-  pathOut='singleVoice.wav' # temp storage of the voice transfered from stereo voice
+  pathIn=r'doubleVoice.wav' # temp storage of the voice recived from front end
+  pathOut=r'singleVoice.wav' # temp storage of the voice transfered from stereo voice
   aue = "raw"
   engineType = "sms16k"
   data = request.files['audio']
@@ -128,7 +128,7 @@ def translateAPI():
 
   writeBinary(blob, pathIn)
   print('FileIn created')
-  SingleWave(pathIn, pathOut)
+  SingleWave('doubleVoice.wav', 'singleVoice.wav')
   print('FileOut created')
 
   r = requests.post(URL, headers=getHeader(aue, engineType), data=getBody(pathOut))
