@@ -23,15 +23,16 @@ def SingleWave(pathInput, pathOutput="new.wav"):
   #save wav file
   wf_mono = wave.open(pathOutput,'wb')
   wf_mono.setnchannels(1)
-  wf_mono.setframerate(framerate)
+  wf_mono.setframerate(16000)
+  # wf_mono.setframerate(framerate)
   wf_mono.setsampwidth(sample_width)
   for i in mono_wave:
     data = struct.pack('<h', int(i))
     wf_mono.writeframesraw( data )
   wf_mono.close()
 
-if __name__ == '__main__':
-  SingleWave('test11.wav')
+# if __name__ == '__main__':
+  # SingleWave('test11.wav')
 # fw = wave.openfp(path1, mode='wb')
 # wr = wave.openfp("iat_wav_16k.wav", mode='rb')
 # sw1 = wr.readframes(10)
