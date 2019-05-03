@@ -34,7 +34,7 @@ class DatabaseManager():
 
   def getAll(self):
     dict_db = []
-    for x in self.collcetionTable.find():
+    for x in self.collcetionTable.find().sort("_id", 1):
       print(x)
       x['_id'] = str(x['_id'])
       dict_db.append(x)
